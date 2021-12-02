@@ -1,18 +1,11 @@
-from typing import Iterator
+import pandas as pd
 
-
+# create dataframe
 with open('input.txt', 'r') as f:
-    input = f.read()
+    df = pd.read_table(f, sep='\\n', header=None, names=['depths'])
 
-report = input.splitlines()
+# calculate depth value differences
+df['increases']=df['depths']>df['depths'].shift(1)
 
-i = 1
-depth_increase_counter = 0
-
-while i < len(report):
-    if int(report[i-1]) < int(report[i]):
-        print(report[i], ' is bigger than ', report[i-1])
-        depth_increase_counter += 1
-    i += 1
-
-print(depth_increase_counter)
+# calculate and report total increases
+print(df['increases'].value_counts())
