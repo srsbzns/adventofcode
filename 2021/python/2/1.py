@@ -2,20 +2,27 @@
 # STDLIB ONLY
 # FINAL DESTINATION
 
-with open('input.txt', 'r') as f:
-    input = f.readlines()
+def format_commands(commands):
+    program = [i.rstrip().split() for i in commands]
+    return program
 
-commands = [i.rstrip().split() for i in input]
+def execute_program(program):
+    horizontal_pos = 0
+    depth = 0
+    for i in program:
+        match i:
+            case ['forward',n]:
+                horizontal_pos += int(n)
+            case ['down',n]:
+                depth += int(n)
+            case ['up',n]:
+                depth -= int(n)
+    return horizontal_pos * depth
 
-horizontal_pos = 0
-depth = 0
+def main():
+    with open('input.txt', 'r') as f:
+        input = f.readlines()
+    program = format_commands(input)
+    print(execute_program(program))
 
-for i in commands:
-    if i[0] == 'forward':
-        horizontal_pos += int(i[1])
-    elif i[0] == 'down':
-        depth += int(i[1])
-    elif i[0] == 'up':
-        depth -= int(i[1])
-
-print(horizontal_pos * depth)
+main()
