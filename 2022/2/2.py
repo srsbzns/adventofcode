@@ -34,7 +34,7 @@ with open('input.txt', 'r') as input:
 
         # Initiate variable to track score for each round, resetting on each loop.
         round_score = 0
-        
+
         # Check opponent's throw, then your win/loss/draw, and calculate your throw accordingly.
         if throw_wld[2] == "X":
             round_score += loss
